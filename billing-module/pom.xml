@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.monorepo</groupId>
+        <artifactId>monorepo-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>billing-module</artifactId>
+    <name>Billing Module</name>
+    <description>
+        Módulo de facturación. Depende de shared-module.
+        Expone BillingService como API pública.
+    </description>
+
+    <dependencies>
+        <!-- Dependencia interna - usa versión del parent -->
+        <dependency>
+            <groupId>com.example.monorepo</groupId>
+            <artifactId>shared-module</artifactId>
+        </dependency>
+        
+        <!-- Spring para los estereotipos (@Service) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.example.monorepo</groupId>
+    <artifactId>monorepo-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>Monorepo Parent</name>
+    <description>
+        Ejemplo de Monorepo con Source Code Boundary.
+        Todos los módulos comparten la misma versión y se compilan juntos.
+    </description>
+
+    <!-- ================================================================== -->
+    <!-- MÓDULOS: Aquí se declaran todos los submódulos del monorepo        -->
+    <!-- El orden importa: primero las dependencias, luego los consumidores -->
+    <!-- ================================================================== -->
+    <modules>
+        <module>shared-module</module>
+        <module>billing-module</module>
+        <module>inventory-module</module>
+        <module>main-app</module>
+    </modules>
+
+    <!-- ================================================================== -->
+    <!-- PROPIEDADES GLOBALES: Compartidas por todos los módulos            -->
+    <!-- ================================================================== -->
+    <properties>
+        <java.version>21</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <!-- Spring Boot version - todos los módulos usan la misma -->
+        <spring-boot.version>3.4.0</spring-boot.version>
+    </properties>
+
+    <!-- ================================================================== -->
+    <!-- GESTIÓN DE DEPENDENCIAS: Centraliza versiones para todos           -->
+    <!-- ================================================================== -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Boot BOM -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Módulos internos - todos usan ${project.version} -->
+            <dependency>
+                <groupId>com.example.monorepo</groupId>
+                <artifactId>shared-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example.monorepo</groupId>
+                <artifactId>billing-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.example.monorepo</groupId>
+                <artifactId>inventory-module</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
