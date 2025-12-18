@@ -27,14 +27,14 @@ cryo-crab/
 
 ## Características del Source Code Boundary
 
-| Aspecto | Valor |
-|---|---|
-| **Versionado** | Todos los módulos usan `${project.version}` del parent |
-| **Compilación** | `mvn clean install` desde la raíz compila todo junto |
-| **Comunicación** | Function calls (llamadas directas in-process) |
-| **Despliegue** | Un único `main-app.jar` (fat JAR) |
-| **JVM** | Todos corren en la misma JVM |
-| **Dependencias** | Comparten las mismas versiones (Spring Boot, Java, etc.) |
+| Aspecto           | Valor                                                    |
+|------------------ |----------------------------------------------------------|
+| **Versionado**    | Todos los módulos usan `${project.version}` del parent   |
+| **Compilación**   | `mvn clean install` desde la raíz compila todo junto     |
+| **Comunicación**  | Function calls (llamadas directas in-process)            |
+| **Despliegue**    | Un único `main-app.jar` (fat JAR)                        |
+| **JVM**           | Todos corren en la misma JVM                             |
+| **Dependencias**  | Comparten las mismas versiones (Spring Boot, Java, etc.) |
 
 ## Grafo de Dependencias
 
@@ -127,11 +127,11 @@ Esto le dice a Maven: "cuando compile desde la raíz, incluye estos 4 subproyect
 
 ### Resumen de la Vinculación
 
-| Archivo | Responsabilidad |
-|---|---|
-| `pom.xml` (parent) | Define `<modules>` + `<dependencyManagement>` |
-| `*/pom.xml` (submódulos) | `<parent>` hereda + `<dependencies>` sin versión |
-| `${project.version}` | Garantiza que todos usen la misma versión |
+| Archivo                  | Responsabilidad                                      |
+|--------------------------|------------------------------------------------------|
+| `pom.xml` (parent)       | Define `<modules>` + `<dependencyManagement>`        |
+| `*/pom.xml` (submódulos) | `<parent>` hereda + `<dependencies>` sin versión     |
+| `${project.version}`     | Garantiza que todos usen la misma versión            |
 
 ---
 
@@ -139,12 +139,12 @@ Esto le dice a Maven: "cuando compile desde la raíz, incluye estos 4 subproyect
 
 Este proyecto demuestra **Source Code Boundary**. Existen 4 niveles:
 
-| Nivel | Descripción | ¿Aplica aquí? |
-|---|---|---|
-| **Package/Folder** | Separación por carpetas/paquetes | ✅ |
-| **Source Code** | Módulos Maven separados, misma versión | ✅ Este ejemplo |
-| **Binary** | Artefactos versionados independientemente | ❌ |
-| **Executable** | Procesos/JVMs separadas | ❌ |
+| Nivel              | Descripción                                | ¿Aplica aquí?   |
+|--------------------|--------------------------------------------|-----------------|
+| **Package/Folder** | Separación por carpetas/paquetes           | ✅              |
+| **Source Code**    | Módulos Maven separados, misma versión     | ✅ Este ejemplo |
+| **Binary**         | Artefactos versionados independientemente  | ❌              |
+| **Executable**     | Procesos/JVMs separadas                    | ❌              |
 
 ## Comunicación entre Módulos
 
